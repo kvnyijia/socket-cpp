@@ -9,10 +9,14 @@
 #include <arpa/inet.h>      // Needed by inet_addr
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
   // Step 0: Determine the server address and port number
   int PORT_NUMBER = 8080;
-  const char *SERVER_ADDRESS = "127.0.0.1";
+  char *SERVER_ADDRESS = "127.0.0.1";
+  if (argc > 1) {
+    SERVER_ADDRESS = (char *) malloc(strlen(argv[1])+1);
+    strcpy(SERVER_ADDRESS, argv[1]);
+  }
 
   // Step 1: Create a TCP socket
   int sockfd = socket(AF_INET, SOCK_STREAM, 0);
